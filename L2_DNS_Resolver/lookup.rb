@@ -19,11 +19,27 @@ domain = get_command_line_argument
 dns_raw = File.readlines("zone")
 
 def parse_dns(raw)
-  zone_hash = {}
+  zone_hash = {} #To store zone file details as hash
   raw.map { |line| line.strip.split(", ") }.
     reject { |record| record.length < 3 or (record[0] != "CNAME" and record[0] != "A") }.
     each { |data| zone_hash[data[1]] = { :type => data[0], :target => data[2] } }
+
+  puts "The Zone file does not contain  'A record' or 'CNAME record'" if zone_hash.empty?
   zone_hash
+end
+
+def resolve(records, lookup, domain)
+  required_record = records[domain]
+  if (!required_record)
+    lookup = ["Error: Record not found for " + domain]
+  elsif required_record[:type] == "CNAME"
+    lookup << required_record[:target]
+    resolve(records, lookup, required_record[:target])
+  elsif required_record[:type] == "A"
+    lookup << required_record[:target]
+  else
+    lookup = ["Invalid record type for " + domain]
+  end
 end
 
 # To complete the assignment, implement `parse_dns` and `resolve`.
