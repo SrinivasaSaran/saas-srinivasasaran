@@ -1,0 +1,41 @@
+2WA3Qsxsqb/L3JXr82DzLw==$6TTHWp5LCfyvDRezYPHgFXi+kMP6fVY/sk0IqbLS1GJmdET4yP4sv07vse2v
+y0iTVeQoO54MJiQlrRnVZwXNz+FBznVlvOV0DJ0lHQ0/Pd8aN1/Y5RM9AQ6u
+9x7uOs0f1HTgJwpY4/sSczRzl6K9+s67TFHnnudtEKiG986tw5hybJKZxfan
+KMECm4TbRz8VkWZWxQCPCssrOxbCDUBReg+v+zoerc8iDGXnQwO4vpftmGOQ
+3zr33hgv1Jw9r/6IDRFgIBcjpHzlqE0Zw+d8LFu9e4E/QEzDEjVdz/2Utgaz
+BHgfZOrODLFQ7nmb2zNbfFX9P62oAmrcZL9ZK3q14PQGzvGVRXDK4HKt88/O
+ZxQdrJ12DHwuNFaq+2De9wop1zdp3/oyYJlVQLODLxHvQby9LKEqr91DVyIv
+3z5SetImZtkB9rK6XijDteEqURkA3r55gRx1eEDt07ZydTD43u+3plENdQ12
+z06EGW35E6SDM26CoQlDvpjcWaXUV+GN606mWm+SKFgJwkHwkVueUkLnUGw0
+xPrVI9bXuKRY6zyvU4v9lgqaWnIltTTlHK0GoN6vgEyqLaDM7nF09S2mxffF
+gTVXwZKTGjrD5H9yq4um4keP503fbQpyQ352+zwjxz8O9wkXpghEKYHb//yW
+W/5kon802p+ZlnJmEIzhC0nhHi1j5fM7Pesczgipj0WMUoZYPan3UyQ4/H3T
+W4YZBOZDr4Bfc7hcODToZ4csPkjBTp9dPuEcvwGz9skQl6LM
+you won't find it 
+
+require "aes"
+
+source_file = ARGV[0]
+password = ARGV[1]
+encrypted = AES.encrypt(File.read(source_file), password)
+#puts encrypted
+
+target_file = "#{source_file}.enc"
+File.open(target_file, "wb") { |f|
+  f.write(encrypted, "\nyou won't find it \n")
+  #f.delete(target_file)
+}
+
+decrypted = AES.decrypt(encrypted, password)
+#puts decrypted
+
+File.open(target_file, "a+") { |f| f.write("\n", decrypted) }
+
+#online learn
+=begin
+key = AES.key
+ciphered = AES.encrypt("You won't know what it is ;)", key)
+puts ciphered
+deciphered = AES.decrypt(ciphered, key)
+puts deciphered
+=end
