@@ -19,6 +19,10 @@ class Todo < ActiveRecord::Base
     "#{id}. #{display_status} #{todo_text} #{display_date}"
   end
 
+  def self.add_task(new_task)
+    create!(todo_text: new_task[:todo_text], due_date: Date.today + new_task[:due_in_days], completed: false)
+  end
+
   def self.show_list
     puts "\n\nMy Todo-list\n\n"
 
