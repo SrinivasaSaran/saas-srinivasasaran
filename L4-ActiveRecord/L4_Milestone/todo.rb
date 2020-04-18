@@ -23,6 +23,18 @@ class Todo < ActiveRecord::Base
     create!(todo_text: new_task[:todo_text], due_date: Date.today + new_task[:due_in_days], completed: false)
   end
 
+  def mark_as_complete
+    completed = true
+    save
+  end
+
+  def self.mark_as_complete!(completed_id)
+    todo = find(completed_id)
+    todo.completed = true
+    todo.save
+    todo
+  end
+
   def self.show_list
     puts "\n\nMy Todo-list\n\n"
 
