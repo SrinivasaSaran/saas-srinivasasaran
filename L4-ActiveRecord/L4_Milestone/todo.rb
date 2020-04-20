@@ -1,21 +1,22 @@
 require "active_record"
 
 class Todo < ActiveRecord::Base
-  def overdue
-    due_date < Date.today
+  def self.overdue
+    where("due_date < ?", Date.today)
   end
 
-  def due_today
-    due_date == Date.today
+  def self.due_today
+    where("due_date = ?", Date.today)
   end
 
-  def due_later
-    due_date > Date.today
+  def self.due_later
+    where("due_date > ?", Date.today)
   end
 
   def to_displayable_string
     display_status = completed ? "[X]" : "[ ]"
-    display_date = due_today ? nil : due_date
+    display_date = nil if due_date == Date.today
+    display_date = due_date if due_date != Date.today
     "#{id}. #{display_status} #{todo_text} #{display_date}"
   end
 
@@ -34,15 +35,15 @@ class Todo < ActiveRecord::Base
     puts "\n\nMy Todo-list\n\n"
 
     puts "Overdue\n"
-    puts all.select { |todo| todo.overdue }.map { |todo| todo.to_displayable_string }
+    puts overdue.map { |todo| todo.to_displayable_string }
     puts "\n\n"
 
     puts "Due Today\n"
-    puts all.select { |todo| todo.due_today }.map { |todo| todo.to_displayable_string }
+    puts due_today.map { |todo| todo.to_displayable_string }
     puts "\n\n"
 
     puts "Due Later\n"
-    puts all.select { |todo| todo.due_later }.map { |todo| todo.to_displayable_string }
+    puts due_later.map { |todo| todo.to_displayable_string }
     puts "\n\n"
   end
 end
