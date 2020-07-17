@@ -48,5 +48,15 @@ todo.each {
   puts "#{g[0]}:\n"
   g[1].each { |h| puts "   #{h}" }
 }
-#money = todos.find_all { |l| l[1] == "money" }
-#puts money
+#Aliter:
+=begin
+money = todos.find_all { |l| l[1] == "money" }
+puts "#{money[0][1]}:"
+money.each { |zz| puts "    #{zz[0]}" }
+organize = todos.find_all { |l| l[1] == "organize" }
+puts "#{organize[0][1]}:"
+organize.each { |zz| puts "    #{zz[0]}" }
+food = todos.find_all { |l| l[1] == "food" }
+puts "#{food[0][1]}:"
+food.each { |zz| puts "    #{zz[0]}" }
+=end

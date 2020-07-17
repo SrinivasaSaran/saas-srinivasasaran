@@ -1,5 +1,4 @@
 #Basics
-=begin
 integer = 69
 string = "elaborate"
 boolean = true
@@ -21,11 +20,9 @@ puts q
 print string, " string ", (integer + float), "\n"
 print "\n\n\n"
 
-
 #Arrays
 ary = [1, 3, 5, 7, 9, 2, 4, 6, 8]
 puts ary.sum, ary.length, ary[4], ary.min & ary.max, ary[3 * 2], ary[3 & 2]
-=end
 
 #Strings
 str = "heY duDe hoe U doing Yaar?"

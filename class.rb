@@ -89,6 +89,7 @@ end
 
 c = Course.new("SaaS", ["A", "B"])
 c.students = c.students.concat(["X", "Y"]) # this calls `students=` method
+puts c.students
 
 #obeying 'tell dont ask'
 class Course
@@ -105,3 +106,4 @@ end
 c = Course.new("SaaS", ["A", "B"])
 c.add_student("X")
 c.add_student("Y")
+puts c.students
