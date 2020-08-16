@@ -1,3 +1,41 @@
+def get_command_line_arguments
+  command_line_arguments = []
+  number = ARGV[0].to_i
+  if number > 0 and number < 10001
+    command_line_arguments = [number]
+    if ARGV[1].length == number and ARGV[2].length == number
+      command_line_arguments.push(ARGV[1], ARGV[2])
+    end
+  end
+  if command_line_arguments.length < 2
+    puts "Wrong input format"
+    exit
+  else
+    command_line_arguments
+  end
+end
+
+def swayamvar(brides, grooms, number_of_brides)
+    success = 0
+    for i in 0...brides.length
+      success = i+1 if brides[0] == grooms[i]
+      exit if success>0
+    end
+    for i in 0...success
+      rejected_groom = grooms[0]
+      grooms.shift
+      grooms.push(rejected_groom)
+    end
+    return swayamvar(brides, grooms, number_of_brides) if success
+    return brides.length if !success
+  end
+end
+
+input = get_command_line_arguments
+brides = input[1].split("")
+grooms = input[2].split("")
+puts swayamvar(brides, grooms, input[0])
+
 =begin
 Swayamvar
 Problem Description
